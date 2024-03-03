@@ -21,7 +21,7 @@ export class Users {
 
   @Column('varchar', {
     name: 'favorite_indicators',
-    length: 1000,
+    length: 4096,
     nullable: true,
   })
   favorite_indicators: string;

@@ -30,17 +30,15 @@ export class UserService {
     return user;
   }
 
-  async addFavorite(userId: number, newIndicatorId: number) {
+  async addFavorite(userId: number, newIndicatorId: string) {
     try {
       const user: Users = await this.SelectOneById(userId);
       if (!user) {
         throw new Error('Request User is undefined');
       }
 
-      console.log('user: ', user);
-
       const existingIndicators = user.favorite_indicators
-        ? user.favorite_indicators.split('|').map(Number)
+        ? user.favorite_indicators.split('|').map(String)
         : [];
 
       if (existingIndicators.includes(newIndicatorId)) {
@@ -50,8 +48,6 @@ export class UserService {
       const updatedIndicators = [...existingIndicators, newIndicatorId].join(
         '|',
       );
-
-      console.log('updatedIndicators: ', updatedIndicators);
 
       await this.UserRepository.createQueryBuilder()
         .update(Users)
@@ -63,7 +59,7 @@ export class UserService {
     }
   }
 
-  async getFavoriteIndicators(userId: number): Promise<number[]> {
+  async getFavoriteIndicators(userId: number): Promise<string[]> {
     const userEntity = await this.UserRepository.findOneBy({ id: userId });
 
     if (!userEntity) {
@@ -74,6 +70,6 @@ export class UserService {
       return [];
     }
 
-    return userEntity.favorite_indicators.split('|').map(Number);
+    return userEntity.favorite_indicators.split('|').map(String);
   }
 }

@@ -25,7 +25,7 @@ export class UserController {
   }
 
   // 유저 관심 지표 획득
-  @Post('/favorite/get/:id')
+  @Get('/favorite/get/:id')
   getFavorite(@Param('id', ParseIntPipe) userId: number) {
     return this.userService.getFavoriteIndicators(userId);
   }
