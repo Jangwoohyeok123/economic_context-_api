@@ -9,6 +9,7 @@ import * as ormconfig from '../ormconfig';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './api/user/user.module';
 import { Users } from './api/user/entity/user.entity';
+import { Indicators } from './api/indicator/entity/indicator.entity';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { Users } from './api/user/entity/user.entity';
     JournalModule,
     IndicatorModule,
     ContextModule,
-    TypeOrmModule.forFeature([Users]),
+    TypeOrmModule.forFeature([Users, Indicators]),
     TypeOrmModule.forRoot(ormconfig),
   ],
   controllers: [AppController],
