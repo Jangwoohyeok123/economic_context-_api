@@ -1,9 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
+import { CreateAuthGoogleDto } from './dto/auth.dto';
+import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
-  @Get('/')
-  test() {
-    return 'test';
+  constructor(private readonly authService: AuthService) {}
+  // 구글 로그인
+  @Post('/google')
+  googleLogin(@Body() createAuthGoogleDto: CreateAuthGoogleDto) {
+    return this.authService.googleLogin(createAuthGoogleDto.code);
   }
 }
