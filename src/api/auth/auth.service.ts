@@ -4,16 +4,12 @@ import axios from 'axios';
 import { UserService } from '../user/user.service';
 import { GoogleUserDto } from './dto/auth.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
-import { InjectRepository } from '@nestjs/typeorm';
 import { Users } from '../user/entity/user.entity';
-import { Repository } from 'typeorm';
 
 const GetGoogleAccessToken = async (
   permissionCode: string,
 ): Promise<[boolean, string]> => {
   try {
-    console.log('permissionCode: ', permissionCode);
-
     const response = await axios.post(
       `https://oauth2.googleapis.com/token`,
       {
@@ -29,8 +25,6 @@ const GetGoogleAccessToken = async (
         },
       },
     );
-
-    console.log('response.data: ', response.data);
 
     const google_access_token = response.data.access_token;
     return [true, google_access_token];
@@ -71,9 +65,8 @@ export class AuthService {
   constructor(
     private jwtService: JwtService,
     private userService: UserService,
-    @InjectRepository(Users) private UserRepository: Repository<Users>,
   ) {}
-  async googleLogin(permissionCode: string) {
+  async googleLogin(permissionCode: string): Promise<[string, Users]> {
     let ok: boolean;
     let google_access_token: string;
     let google_user_data: GoogleUserDto | null;
@@ -105,12 +98,12 @@ export class AuthService {
       };
 
       // 기존 유저인지 확인
-      const user: Users | null = await this.userService.FindOneByEmail(
+      let user: Users | null = await this.userService.SelectOneByEmail(
         user_dto.email,
       );
       if (user == null) {
         // 새로 생성
-        this.userService.Create(user_dto);
+        user = await this.userService.Create(user_dto);
       }
 
       // Server API Access token 획득
@@ -119,7 +112,9 @@ export class AuthService {
         { secret: process.env.JWT_SECRET_KEY },
       );
 
-      return access_token;
+      const result: [string, Users] = [access_token, user];
+
+      return result;
     } catch (err) {
       throw new HttpException(err, HttpStatus.BAD_REQUEST);
     }
