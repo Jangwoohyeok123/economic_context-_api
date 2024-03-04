@@ -7,4 +7,7 @@ export class Indicators {
 
   @Column('varchar', { name: 'title', length: 500 })
   title: string;
+
+  @Column({ type: 'int', name: 'type' })
+  type: number;
 }

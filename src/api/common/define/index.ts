@@ -4,7 +4,7 @@ export interface UserRequest extends Request {
   user: Users;
 }
 
-export enum EconomicCategory {
+export enum IndicatorCategory {
   Interest = 114,
   Exchange = 94,
   Consume = 9,

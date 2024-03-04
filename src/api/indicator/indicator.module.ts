@@ -8,5 +8,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   imports: [TypeOrmModule.forFeature([Indicators])],
   controllers: [IndicatorController],
   providers: [IndicatorService],
+  exports: [IndicatorService], // IndicatorService를 export
 })
 export class IndicatorModule {}

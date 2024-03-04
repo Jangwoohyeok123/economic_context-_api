@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Indicators } from './entity/indicator.entity';
 import { Repository } from 'typeorm';
 import axios from 'axios';
-import { EconomicCategory } from '../common/define';
+import { IndicatorCategory } from '../common/define';
 
 @Injectable()
 export class IndicatorService {
@@ -11,25 +11,35 @@ export class IndicatorService {
     @InjectRepository(Indicators)
     private indicatorRepository: Repository<Indicators>,
   ) {}
+  // Singleton
+  private IndicatorsCache: Indicators[] = [];
 
-  private async saveEconomicData(id: string, title: string): Promise<void> {
+  private async saveIndicatorData(
+    id: string,
+    title: string,
+    type: number,
+  ): Promise<void> {
     const existingData = await this.indicatorRepository.findOneBy({ id });
 
     if (!existingData) {
-      const newData = this.indicatorRepository.create({ id, title });
-      console.log(newData);
-
+      const newData = this.indicatorRepository.create({ id, title, type });
       await this.indicatorRepository.save(newData);
     }
+  }
+
+  public getIndicatorsByIdList(idList: string[]): Indicators[] {
+    return this.IndicatorsCache.filter((indicator) =>
+      idList.includes(indicator.id),
+    );
   }
 
   async onModuleInit() {
     const baseUrl = 'https://api.stlouisfed.org/fred/'; // baseUrl 정의
     const categoryIds = [
-      EconomicCategory.Interest,
-      EconomicCategory.Exchange,
-      EconomicCategory.Consume,
-      EconomicCategory.Production,
+      IndicatorCategory.Interest,
+      IndicatorCategory.Exchange,
+      IndicatorCategory.Consume,
+      IndicatorCategory.Production,
     ];
 
     try {
@@ -39,11 +49,18 @@ export class IndicatorService {
 
         for (const item of response.data.seriess) {
           //   console.log('item:', item);
-          await this.saveEconomicData(item.id, item.title);
+          await this.saveIndicatorData(item.id, item.title, categoryId);
         }
       }
     } catch (err) {
       throw new Error('Request Fred API Fail');
+    }
+
+    try {
+      // 전체 laod
+      this.IndicatorsCache = await this.indicatorRepository.find();
+    } catch (err) {
+      throw new Error('indicatorRepository find() Fail');
     }
   }
 }

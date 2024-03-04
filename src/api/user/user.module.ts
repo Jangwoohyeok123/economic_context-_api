@@ -4,10 +4,13 @@ import { UserService } from './user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Users } from './entity/user.entity';
 import { JwtService } from '@nestjs/jwt';
+import { IndicatorService } from '../indicator/indicator.service';
+import { Indicators } from '../indicator/entity/indicator.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Users])],
+  imports: [TypeOrmModule.forFeature([Users, Indicators])],
   controllers: [UserController],
-  providers: [UserService, JwtService],
+  providers: [UserService, JwtService, IndicatorService],
+  exports: [UserService], // UserService를 export
 })
 export class UserModule {}
