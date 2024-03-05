@@ -1,7 +1,10 @@
+import { Contexts } from 'src/api/context/entity/context.entity';
+import { Journals } from 'src/api/journal/entity/journal.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -28,4 +31,10 @@ export class Users {
 
   @CreateDateColumn()
   createdAt: Date;
+
+  @OneToMany(() => Contexts, (context) => context.user)
+  contexts: Contexts[];
+
+  @OneToMany(() => Journals, (journal) => journal.user)
+  journals: Journals[];
 }

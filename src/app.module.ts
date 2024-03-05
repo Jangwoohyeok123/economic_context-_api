@@ -10,6 +10,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './api/user/user.module';
 import { Users } from './api/user/entity/user.entity';
 import { Indicators } from './api/indicator/entity/indicator.entity';
+import { Contexts } from './api/context/entity/context.entity';
+import { Journals } from './api/journal/entity/journal.entity';
 
 @Module({
   imports: [
@@ -18,7 +20,7 @@ import { Indicators } from './api/indicator/entity/indicator.entity';
     JournalModule,
     IndicatorModule,
     ContextModule,
-    TypeOrmModule.forFeature([Users, Indicators]),
+    TypeOrmModule.forFeature([Users, Indicators, Contexts, Journals]),
     TypeOrmModule.forRoot(ormconfig),
   ],
   controllers: [AppController],
