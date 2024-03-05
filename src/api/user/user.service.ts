@@ -64,7 +64,7 @@ export class UserService {
     }
   }
 
-  async getFavoriteIndicators(userId: number): Promise<Indicators[]> {
+  async getFavoriteIndicatorsAll(userId: number): Promise<Indicators[]> {
     const userEntity = await this.UserRepository.findOneBy({ id: userId });
 
     if (!userEntity) {
@@ -77,6 +77,25 @@ export class UserService {
 
     const idList = userEntity.favorite_indicators.split('|').map(String);
     return this.indicatorService.getIndicatorsByIdList(idList);
+  }
+
+  async getFavoriteIndicatorsByType(
+    userId: number,
+    type: number,
+  ): Promise<Indicators[]> {
+    const userEntity = await this.UserRepository.findOneBy({ id: userId });
+
+    if (!userEntity) {
+      throw new Error('User not found');
+    }
+
+    if (!userEntity.favorite_indicators) {
+      return [];
+    }
+
+    const idList = userEntity.favorite_indicators.split('|').map(String);
+    const indicatorsList = this.indicatorService.getIndicatorsByIdList(idList);
+    return indicatorsList.filter((indicator) => indicator.type == type);
   }
 
   async deleteFavoriteOne(userId: number, deleteIndicatorId: string) {

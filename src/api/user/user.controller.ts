@@ -19,10 +19,19 @@ export class UserController {
     return this.userService.SelectOneById(userId);
   }
 
-  // 유저 관심 지표 획득
+  // 유저 관심 지표 전체 획득
   @Get('/favorite/:id')
-  getFavoriteIndicators(@Param('id', ParseIntPipe) userId: number) {
-    return this.userService.getFavoriteIndicators(userId);
+  getFavoriteIndicatorsAll(@Param('id', ParseIntPipe) userId: number) {
+    return this.userService.getFavoriteIndicatorsAll(userId);
+  }
+
+  // 유저 관심 지표 타입별 획득
+  @Get('/favorite/:id/:type')
+  getFavoriteIndicatorsByType(
+    @Param('id', ParseIntPipe) userId: number,
+    @Param('type', ParseIntPipe) type: number,
+  ) {
+    return this.userService.getFavoriteIndicatorsByType(userId, type);
   }
 
   // 유저 관심 지표 추가
