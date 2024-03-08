@@ -11,7 +11,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ schema: 'economic_context', name: 'users' })
+@Entity({ schema: 'economic_context', name: 'contexts' })
 export class Contexts {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;

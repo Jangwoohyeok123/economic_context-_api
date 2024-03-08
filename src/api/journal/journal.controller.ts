@@ -6,6 +6,7 @@ import { JournalService } from './journal.service';
 export class JournalController {
   constructor(private readonly journalService: JournalService) {}
 
+  // Create
   @Post(':userId/:contextId')
   createJournal(
     @Param('userId', ParseIntPipe) userId: number,
@@ -18,4 +19,10 @@ export class JournalController {
       createJournalDto,
     );
   }
+
+  // Read
+
+  // Update
+
+  // Delete
 }
