@@ -81,7 +81,7 @@ export class UserService {
 
   async getFavoriteIndicatorsByType(
     userId: number,
-    type: number,
+    categoryId: number,
   ): Promise<Indicators[]> {
     const userEntity = await this.UserRepository.findOneBy({ id: userId });
 
@@ -95,7 +95,9 @@ export class UserService {
 
     const idList = userEntity.favorite_indicators.split('|').map(String);
     const indicatorsList = this.indicatorService.getIndicatorsByIdList(idList);
-    return indicatorsList.filter((indicator) => indicator.type == type);
+    return indicatorsList.filter(
+      (indicator) => indicator.categoryId == categoryId,
+    );
   }
 
   async deleteFavoriteOne(userId: number, deleteIndicatorId: string) {

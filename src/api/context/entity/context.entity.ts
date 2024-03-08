@@ -20,11 +20,11 @@ export class Contexts {
   name: string;
 
   @Column('varchar', {
-    name: 'custom_indicators',
+    name: 'customIndicators',
     length: 4096,
     nullable: true,
   })
-  custom_indicators: string;
+  customIndicators: string;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -15,21 +15,25 @@ export class IndicatorService {
   private IndicatorsCache: Indicators[] = [];
 
   private async saveIndicatorData(
-    id: string,
+    seriesId: string,
     title: string,
-    type: number,
+    categoryId: number,
   ): Promise<void> {
-    const existingData = await this.indicatorRepository.findOneBy({ id });
+    const existingData = await this.indicatorRepository.findOneBy({ seriesId });
 
     if (!existingData) {
-      const newData = this.indicatorRepository.create({ id, title, type });
+      const newData = this.indicatorRepository.create({
+        seriesId,
+        title,
+        categoryId,
+      });
       await this.indicatorRepository.save(newData);
     }
   }
 
   public getIndicatorsByIdList(idList: string[]): Indicators[] {
     return this.IndicatorsCache.filter((indicator) =>
-      idList.includes(indicator.id),
+      idList.includes(indicator.seriesId),
     );
   }
 

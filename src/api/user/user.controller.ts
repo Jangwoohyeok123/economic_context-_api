@@ -26,12 +26,12 @@ export class UserController {
   }
 
   // 유저 관심 지표 타입별 획득
-  @Get('/favorite/:id/:type')
+  @Get('/favorite/:id/:categoryId')
   getFavoriteIndicatorsByType(
     @Param('id', ParseIntPipe) userId: number,
-    @Param('type', ParseIntPipe) type: number,
+    @Param('categoryId', ParseIntPipe) categoryId: number,
   ) {
-    return this.userService.getFavoriteIndicatorsByType(userId, type);
+    return this.userService.getFavoriteIndicatorsByType(userId, categoryId);
   }
 
   // 유저 관심 지표 추가
