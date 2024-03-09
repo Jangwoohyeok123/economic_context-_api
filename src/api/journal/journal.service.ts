@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Journals } from './entity/journal.entity';
 import { Repository } from 'typeorm';
 import { CreateJournalDto } from './dto/create-journal.dto';
+import { UpdateJournalDto } from './dto/update-journal.dto';
 
 @Injectable()
 export class JournalService {
@@ -23,5 +24,31 @@ export class JournalService {
     });
 
     return this.journalRepository.save(newJournal);
+  }
+
+  async getJournalsByContextId(contextId: number): Promise<Journals[]> {
+    return this.journalRepository.find({
+      where: { context: { id: contextId } },
+      relations: ['context'],
+    });
+  }
+
+  async updateJournal(
+    journalId: number,
+    updateJournalDto: UpdateJournalDto,
+  ): Promise<Journals> {
+    const journal = await this.journalRepository.findOneBy({ id: journalId });
+    if (!journal) {
+      throw new Error('Journal not found');
+    }
+    this.journalRepository.merge(journal, updateJournalDto);
+    return this.journalRepository.save(journal);
+  }
+
+  async deleteJournal(journalId: number): Promise<void> {
+    const result = await this.journalRepository.delete(journalId);
+    if (result.affected === 0) {
+      throw new Error('Journal not found');
+    }
   }
 }
