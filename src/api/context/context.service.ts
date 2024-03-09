@@ -5,6 +5,9 @@ import { CreateContextDto } from './dto/create-context.dto';
 import { Contexts } from './entity/context.entity';
 import { UserService } from '../user/user.service';
 import { UpdateContextDto } from './dto/update-context.dto';
+import { IndicatorService } from '../indicator/indicator.service';
+import { Indicators } from '../indicator/entity/indicator.entity';
+import { ResponseContextDto } from './dto/response-context.dto';
 
 @Injectable()
 export class ContextService {
@@ -12,6 +15,7 @@ export class ContextService {
     private userService: UserService,
     @InjectRepository(Contexts)
     private contextRepository: Repository<Contexts>,
+    private readonly indicatorService: IndicatorService,
   ) {}
 
   async createContext(
@@ -43,7 +47,7 @@ export class ContextService {
     }
   }
 
-  async getContext(contextId: number): Promise<Contexts> {
+  async getContext(contextId: number): Promise<ResponseContextDto> {
     try {
       const context = await this.contextRepository.findOne({
         where: { id: contextId },
@@ -57,7 +61,16 @@ export class ContextService {
         );
       }
 
-      return context;
+      let customIndicators: Indicators[] = [];
+      if (context.customIndicators) {
+        // customIndicators 문자열을 파싱하여 인디케이터 ID 리스트를 추출
+        const indicatorIds = context.customIndicators.split('|');
+        // 인디케이터 ID 리스트를 사용하여 Indicators 엔티티들을 조회
+        customIndicators =
+          this.indicatorService.getIndicatorsByIdList(indicatorIds);
+      }
+
+      return new ResponseContextDto(context, customIndicators);
     } catch (err) {
       throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }
