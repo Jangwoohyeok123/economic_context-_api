@@ -29,7 +29,6 @@ export class JournalService {
   async getJournalsByContextId(contextId: number): Promise<Journals[]> {
     return this.journalRepository.find({
       where: { context: { id: contextId } },
-      relations: ['context'],
     });
   }
 

@@ -14,7 +14,7 @@ export class IndicatorService {
   // Singleton
   private IndicatorsCache: Indicators[] = [];
 
-  private async saveIndicatorData(
+  async saveIndicatorData(
     seriesId: string,
     title: string,
     categoryId: number,

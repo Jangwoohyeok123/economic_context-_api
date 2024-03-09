@@ -37,7 +37,10 @@ export class UserService {
     try {
       const user: Users = await this.SelectOneById(userId);
       if (!user) {
-        throw new Error('Request User is undefined');
+        throw new HttpException(
+          `User id ${userId} not found`,
+          HttpStatus.NOT_FOUND,
+        );
       }
 
       const existingIndicators = user.favorite_indicators
@@ -65,17 +68,19 @@ export class UserService {
   }
 
   async getFavoriteIndicatorsAll(userId: number): Promise<Indicators[]> {
-    const userEntity = await this.UserRepository.findOneBy({ id: userId });
-
-    if (!userEntity) {
-      throw new Error('User not found');
+    const user = await this.UserRepository.findOneBy({ id: userId });
+    if (!user) {
+      throw new HttpException(
+        `User id ${userId} not found`,
+        HttpStatus.NOT_FOUND,
+      );
     }
 
-    if (!userEntity.favorite_indicators) {
+    if (!user.favorite_indicators) {
       return [];
     }
 
-    const idList = userEntity.favorite_indicators.split('|').map(String);
+    const idList = user.favorite_indicators.split('|').map(String);
     return this.indicatorService.getIndicatorsByIdList(idList);
   }
 
@@ -83,17 +88,20 @@ export class UserService {
     userId: number,
     categoryId: number,
   ): Promise<Indicators[]> {
-    const userEntity = await this.UserRepository.findOneBy({ id: userId });
+    const user = await this.UserRepository.findOneBy({ id: userId });
 
-    if (!userEntity) {
-      throw new Error('User not found');
+    if (!user) {
+      throw new HttpException(
+        `User id ${userId} not found`,
+        HttpStatus.NOT_FOUND,
+      );
     }
 
-    if (!userEntity.favorite_indicators) {
+    if (!user.favorite_indicators) {
       return [];
     }
 
-    const idList = userEntity.favorite_indicators.split('|').map(String);
+    const idList = user.favorite_indicators.split('|').map(String);
     const indicatorsList = this.indicatorService.getIndicatorsByIdList(idList);
     return indicatorsList.filter(
       (indicator) => indicator.categoryId == categoryId,
@@ -104,7 +112,10 @@ export class UserService {
     try {
       const user: Users = await this.SelectOneById(userId);
       if (!user) {
-        throw new Error('Request User is undefined');
+        throw new HttpException(
+          `User id ${userId} not found`,
+          HttpStatus.NOT_FOUND,
+        );
       }
 
       const existingIndicators = user.favorite_indicators

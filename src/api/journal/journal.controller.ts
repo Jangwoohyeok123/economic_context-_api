@@ -5,8 +5,8 @@ import {
   Get,
   Param,
   ParseIntPipe,
-  Patch,
   Post,
+  Put,
 } from '@nestjs/common';
 import { CreateJournalDto } from './dto/create-journal.dto';
 import { JournalService } from './journal.service';
@@ -31,13 +31,13 @@ export class JournalController {
   }
 
   // Read
-  @Get('context/:contextId')
+  @Get(':contextId')
   getJournalsByContextId(@Param('contextId') contextId: number) {
     return this.journalService.getJournalsByContextId(contextId);
   }
 
   // Update
-  @Patch(':journalId')
+  @Put(':journalId')
   updateJournal(
     @Param('journalId') journalId: number,
     @Body() updateJournalDto: UpdateJournalDto,

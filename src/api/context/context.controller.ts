@@ -23,6 +23,11 @@ export class ContextController {
     return this.contextService.createContext(userId, createContextDto);
   }
 
+  @Get()
+  getContextAll() {
+    return this.contextService.getContextAll();
+  }
+
   @Get(':contextId')
   getContext(@Param('contextId') contextId: number) {
     return this.contextService.getContext(contextId);
@@ -30,7 +35,7 @@ export class ContextController {
 
   @Get('/name/:userId')
   getContextNamesByUser(@Param('userId') contextId: number) {
-    return this.contextService.getContext(contextId);
+    return this.contextService.getContextNamesByUser(contextId);
   }
 
   @Put(':contextId')

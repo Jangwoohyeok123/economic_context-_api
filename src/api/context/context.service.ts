@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateContextDto } from './dto/create-context.dto';
@@ -21,7 +21,10 @@ export class ContextService {
     try {
       const user = await this.userService.SelectOneById(userId);
       if (!user) {
-        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        throw new HttpException(
+          `User id ${userId} not found`,
+          HttpStatus.NOT_FOUND,
+        );
       }
 
       const customIndicators = createContextDto.customIndicators
@@ -35,15 +38,8 @@ export class ContextService {
       });
 
       return this.contextRepository.save(newContext);
-    } catch (error) {
-      console.error(
-        `Error creating context for user ${userId}: ${error.message}`,
-        error.stack,
-      );
-      throw new HttpException(
-        'Internal server error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -55,43 +51,37 @@ export class ContextService {
       });
 
       if (!context) {
-        throw new HttpException('Context not found', HttpStatus.NOT_FOUND);
+        throw new HttpException(
+          `Context with id ${contextId} not found`,
+          HttpStatus.NOT_FOUND,
+        );
       }
 
       return context;
-    } catch (error) {
-      console.error(
-        `Error getting context with id ${contextId}: ${error.message}`,
-        error.stack,
-      );
-      throw new HttpException(
-        'Internal server error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+  }
+
+  async getContextAll(): Promise<Contexts[]> {
+    const contextAllList = await this.contextRepository.find();
+    return contextAllList;
   }
 
   async getContextNamesByUser(userId: number): Promise<string[]> {
     try {
       const contexts = await this.contextRepository.find({
         where: { user: { id: userId } },
-        select: ['name'], // 오직 name 필드만 조회
+        select: ['name'],
       });
 
-      if (!contexts) {
+      if (contexts.length === 0) {
         throw new HttpException('No contexts found', HttpStatus.NOT_FOUND);
       }
 
       return contexts.map((context) => context.name);
-    } catch (error) {
-      console.error(
-        `Error getting context names for user ${userId}: ${error.message}`,
-        error.stack,
-      );
-      throw new HttpException(
-        'Internal server error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -118,15 +108,8 @@ export class ContextService {
       }
 
       return this.contextRepository.save(context);
-    } catch (error) {
-      console.error(
-        `Error updating context with id ${contextId}: ${error.message}`,
-        error.stack,
-      );
-      throw new HttpException(
-        'Internal server error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
@@ -136,15 +119,8 @@ export class ContextService {
       if (result.affected === 0) {
         throw new HttpException('Context not found', HttpStatus.NOT_FOUND);
       }
-    } catch (error) {
-      console.error(
-        `Error deleting context with id ${contextId}: ${error.message}`,
-        error.stack,
-      );
-      throw new HttpException(
-        'Internal server error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+    } catch (err) {
+      throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }
