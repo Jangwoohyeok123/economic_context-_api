@@ -7,11 +7,14 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateJournalDto } from './dto/create-journal.dto';
 import { JournalService } from './journal.service';
 import { UpdateJournalDto } from './dto/update-journal.dto';
+import { AuthGuard } from '../common/guard/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('journal')
 export class JournalController {
   constructor(private readonly journalService: JournalService) {}

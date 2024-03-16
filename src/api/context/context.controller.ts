@@ -6,11 +6,14 @@ import {
   Delete,
   Put,
   Get,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateContextDto } from './dto/create-context.dto';
 import { ContextService } from './context.service';
 import { UpdateContextDto } from './dto/update-context.dto';
+import { AuthGuard } from '../common/guard/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('context')
 export class ContextController {
   constructor(private readonly contextService: ContextService) {}
