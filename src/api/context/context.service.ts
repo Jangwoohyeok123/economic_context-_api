@@ -81,18 +81,18 @@ export class ContextService {
     return contextAllList;
   }
 
-  async getContextNamesByUser(userId: number): Promise<string[]> {
+  async getContextNamesByUser(userId: number): Promise<Contexts[]> {
     try {
       const contexts = await this.contextRepository.find({
         where: { user: { id: userId } },
-        select: ['name'],
+        select: ['id', 'name'],
       });
 
       if (contexts.length === 0) {
         throw new HttpException('No contexts found', HttpStatus.NOT_FOUND);
       }
 
-      return contexts.map((context) => context.name);
+      return contexts;
     } catch (err) {
       throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }
