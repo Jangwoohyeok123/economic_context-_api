@@ -6,7 +6,7 @@ import { JournalModule } from './api/journal/journal.module';
 import { IndicatorModule } from './api/indicator/indicator.module';
 import { ContextModule } from './api/context/context.module';
 import * as ormconfig from '../ormconfig';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import * as typeorm from '@nestjs/typeorm';
 import { UserModule } from './api/user/user.module';
 import { Users } from './api/user/entity/user.entity';
 import { Indicators } from './api/indicator/entity/indicator.entity';
@@ -24,7 +24,6 @@ import Joi from 'joi';
     IndicatorModule,
     ContextModule,
     ConfigModule.forRoot({
-      envFilePath: '.env',
       validationSchema: Joi.object({
         JWT_SECRET_KEY: Joi.string().required(),
         NEXT_PUBLIC_FREDKEY: Joi.string().required(),
@@ -37,9 +36,10 @@ import Joi from 'joi';
         DB_HOST: Joi.string().hostname().required(),
       }),
       isGlobal: true,
+      cache: true,
     }),
-    TypeOrmModule.forFeature([Users, Indicators, Contexts, Journals]),
-    TypeOrmModule.forRoot(ormconfig),
+    typeorm.TypeOrmModule.forFeature([Users, Indicators, Contexts, Journals]),
+    typeorm.TypeOrmModule.forRoot(ormconfig),
   ],
   controllers: [AppController],
   providers: [AppService],
