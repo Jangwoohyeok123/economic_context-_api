@@ -24,6 +24,7 @@ import Joi from 'joi';
     IndicatorModule,
     ContextModule,
     ConfigModule.forRoot({
+      envFilePath: '.env',
       validationSchema: Joi.object({
         JWT_SECRET_KEY: Joi.string().required(),
         NEXT_PUBLIC_FREDKEY: Joi.string().required(),
