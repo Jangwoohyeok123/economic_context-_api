@@ -15,8 +15,8 @@ import { Journals } from './api/journal/entity/journal.entity';
 import { LoggingMiddleware } from './api/common/middleware/logging.middleware';
 import { ConfigModule } from '@nestjs/config';
 import Joi from 'joi';
-
-console.log(process.env.DB_HOST);
+import * as dotenv from 'dotenv';
+dotenv.config({ path: __dirname + '/../../.env' });
 
 @Module({
   imports: [
