@@ -16,6 +16,8 @@ import { LoggingMiddleware } from './api/common/middleware/logging.middleware';
 import { ConfigModule } from '@nestjs/config';
 import Joi from 'joi';
 
+console.log(process.env.DB_HOST);
+
 @Module({
   imports: [
     UserModule,
