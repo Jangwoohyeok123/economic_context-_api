@@ -4,7 +4,7 @@ dotenv.config();
 
 const config: TypeOrmModuleOptions = {
   type: 'mysql',
-  host: process.env.DB_HOST,
+  host: 'database-1.c162wgy20nkr.ap-northeast-2.rds.amazonaws.com',
   port: 3306,
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
