@@ -76,11 +76,13 @@ export class ContextService {
     }
   }
 
-  async getContextAll(): Promise<Contexts[]> {
-    const contextAllList = await this.contextRepository.find();
+  async getContextAll(userId: number): Promise<Contexts[]> {
+    const contextAllList = await this.contextRepository.find({
+      where: { user: { id: userId } },
+      select: [],
+    });
     return contextAllList;
   }
-
   async getContextNamesByUser(userId: number): Promise<Contexts[]> {
     try {
       const contexts = await this.contextRepository.find({

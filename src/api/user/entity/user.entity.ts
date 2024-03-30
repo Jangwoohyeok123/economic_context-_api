@@ -19,7 +19,7 @@ export class Users {
   @Column('varchar', { name: 'email', length: 100 })
   email: string;
 
-  @Column('varchar', { name: 'picture_url', length: 300 })
+  @Column('varchar', { name: 'picture_url', length: 10000 })
   picture_url: string;
 
   @Column('varchar', {

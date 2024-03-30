@@ -26,9 +26,9 @@ export class ContextController {
     return this.contextService.createContext(userId, createContextDto);
   }
 
-  @Get()
-  getContextAll() {
-    return this.contextService.getContextAll();
+  @Get('user/:userId')
+  getContextAll(@Param('userId') userId: number) {
+    return this.contextService.getContextAll(userId);
   }
 
   @Get(':contextId')
