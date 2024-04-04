@@ -8,6 +8,7 @@ export class AuthController {
   // 구글 로그인
   @Post('/google')
   googleLogin(@Body() createAuthGoogleDto: CreateAuthGoogleDto) {
+    console.log('servertest', '/google');
     return this.authService.googleLogin(createAuthGoogleDto.code);
   }
 }
