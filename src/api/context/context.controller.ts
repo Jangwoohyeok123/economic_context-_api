@@ -50,7 +50,7 @@ export class ContextController {
   }
 
   @Delete(':contextId')
-  deleteContext(@Param('contextId') contextId: number) {
-    return this.contextService.deleteContext(contextId);
+  async delete(@Param('contextId') contextId: number) {
+    await this.contextService.deleteContext(contextId);
   }
 }
