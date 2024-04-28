@@ -10,7 +10,9 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthGuard } from '../common/guard/auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('user')
 @UseGuards(AuthGuard)
 @Controller('user')
 export class UserController {

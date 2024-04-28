@@ -12,13 +12,16 @@ import { CreateContextDto } from './dto/create-context.dto';
 import { ContextService } from './context.service';
 import { UpdateContextDto } from './dto/update-context.dto';
 import { AuthGuard } from '../common/guard/auth.guard';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('context')
 @UseGuards(AuthGuard)
 @Controller('context')
 export class ContextController {
   constructor(private readonly contextService: ContextService) {}
 
   @Post(':userId')
+  @ApiOperation({ summary: 'create a new context' })
   createContext(
     @Param('userId') userId: number,
     @Body() createContextDto: CreateContextDto,
