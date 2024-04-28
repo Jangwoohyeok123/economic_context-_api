@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, DataSource } from 'typeorm';
 import { CreateContextDto } from './dto/create-context.dto';
 import { Contexts } from './entity/context.entity';
+import { Journals } from '../journal/entity/journal.entity';
 import { UserService } from '../user/user.service';
 import { UpdateContextDto } from './dto/update-context.dto';
 import { IndicatorService } from '../indicator/indicator.service';
@@ -16,6 +17,7 @@ export class ContextService {
     @InjectRepository(Contexts)
     private contextRepository: Repository<Contexts>,
     private readonly indicatorService: IndicatorService,
+    private dataSource: DataSource, // DataSource를 사용하여 트랜잭션을 관리
   ) {}
 
   async createContext(
@@ -135,13 +137,24 @@ export class ContextService {
   }
 
   async deleteContext(contextId: number): Promise<void> {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
     try {
-      const result = await this.contextRepository.delete(contextId);
-      if (result.affected === 0) {
-        throw new HttpException('Context not found', HttpStatus.NOT_FOUND);
-      }
+      await queryRunner.manager
+        .getRepository(Journals)
+        .createQueryBuilder()
+        .delete()
+        .from(Journals)
+        .where('context_id = :contextId', { contextId: contextId })
+        .execute();
+      await queryRunner.manager.getRepository(Contexts).delete(contextId);
+      await queryRunner.commitTransaction();
     } catch (err) {
+      await queryRunner.rollbackTransaction();
       throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
+    } finally {
+      await queryRunner.release();
     }
   }
 }
