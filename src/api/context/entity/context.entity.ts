@@ -19,6 +19,9 @@ export class Contexts {
   @Column('varchar', { name: 'name', length: 100 })
   name: string;
 
+  @Column('varchar', { name: 'name', length: 1024 })
+  label: string;
+
   @Column('varchar', {
     name: 'customIndicators',
     length: 4096,

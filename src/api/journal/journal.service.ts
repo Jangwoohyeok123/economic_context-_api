@@ -32,6 +32,12 @@ export class JournalService {
     });
   }
 
+  async getJournalsByUserId(userId: number): Promise<Journals[]> {
+    return this.journalRepository.find({
+      where: { user: { id: userId } },
+    });
+  }
+
   async updateJournal(
     journalId: number,
     updateJournalDto: UpdateJournalDto,

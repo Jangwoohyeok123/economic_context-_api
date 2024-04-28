@@ -39,6 +39,11 @@ export class JournalController {
     return this.journalService.getJournalsByContextId(contextId);
   }
 
+  @Get(':userId')
+  getJournalsByUserId(@Param('userId') userId: number) {
+    return this.journalService.getJournalsByUserId(userId);
+  }
+
   // Update
   @Put(':journalId')
   updateJournal(

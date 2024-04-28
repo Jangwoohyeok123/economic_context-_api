@@ -5,6 +5,7 @@ import { Contexts } from '../entity/context.entity';
 export class ResponseContextDto {
   id: number;
   name: string;
+  label: string;
   customIndicators: Indicators[];
   createdAt: Date;
   updatedAt: Date;
@@ -13,6 +14,7 @@ export class ResponseContextDto {
   constructor(context: Contexts, customIndicators: Indicators[]) {
     this.id = context.id;
     this.name = context.name;
+    this.label = context.label;
     this.customIndicators = customIndicators;
     this.createdAt = context.createdAt;
     this.updatedAt = context.updatedAt;

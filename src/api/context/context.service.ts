@@ -37,6 +37,7 @@ export class ContextService {
 
       const newContext = this.contextRepository.create({
         name: createContextDto.name,
+        label: createContextDto.label,
         customIndicators,
         user: user,
       });
@@ -83,6 +84,7 @@ export class ContextService {
     });
     return contextAllList;
   }
+
   async getContextNamesByUser(userId: number): Promise<Contexts[]> {
     try {
       const contexts = await this.contextRepository.find({
@@ -120,6 +122,10 @@ export class ContextService {
 
       if (updateContextDto.name) {
         context.name = updateContextDto.name;
+      }
+
+      if (updateContextDto.label) {
+        context.label = updateContextDto.label;
       }
 
       return this.contextRepository.save(context);

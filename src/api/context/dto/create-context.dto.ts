@@ -5,6 +5,9 @@ export class CreateContextDto {
   @IsString()
   readonly name: string;
 
+  @IsString()
+  readonly label: string;
+
   @IsArray()
   @IsOptional()
   readonly customIndicators: Indicators[];
