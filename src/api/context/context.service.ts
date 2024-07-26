@@ -79,12 +79,21 @@ export class ContextService {
     }
   }
 
-  async getContextAll(userId: number): Promise<Contexts[]> {
-    const contextAllList = await this.contextRepository.find({
+  /* 
+    @description 로그인되면 최신순 ContextList 반환 그렇지 않으면 빈 배열 반환
+  */
+  async getContextList(userId: number): Promise<Contexts[]> {
+    const user = await this.userService.SelectOneById(userId);
+    if (!user) {
+      return [];
+    }
+
+    const contextList = await this.contextRepository.find({
       where: { user: { id: userId } },
+      order: { createdAt: 'DESC' },
       select: [],
     });
-    return contextAllList;
+    return contextList;
   }
 
   async getContextNamesByUser(userId: number): Promise<Contexts[]> {

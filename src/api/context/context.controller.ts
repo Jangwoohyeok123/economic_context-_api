@@ -31,7 +31,7 @@ export class ContextController {
 
   @Get('user/:userId')
   getContextAll(@Param('userId') userId: number) {
-    return this.contextService.getContextAll(userId);
+    return this.contextService.getContextList(userId);
   }
 
   @Get(':contextId')
