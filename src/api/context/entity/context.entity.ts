@@ -11,6 +11,9 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+/*  
+  db는 snake case, nest는 camel case를 사용한다.
+*/
 @Entity({ schema: 'economic_context', name: 'contexts' })
 export class Contexts {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
@@ -35,7 +38,7 @@ export class Contexts {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => Users, (user) => user.contexts)
+  @ManyToOne(() => Users, (user) => user.contexts, , { nullable: false })
   @JoinColumn({ name: 'user_id' })
   user: Users;
 
