@@ -22,12 +22,12 @@ export class Contexts {
   @Column('varchar', { name: 'name', length: 1024 })
   label: string;
 
-  @Column('varchar', {
-    name: 'customIndicators',
-    length: 4096,
-    nullable: true,
-  })
-  customIndicators: string;
+  // @Column('varchar', {
+  //   name: 'customIndicators',
+  //   length: 4096,
+  //   nullable: true,
+  // })
+  // customIndicators: string;
 
   @CreateDateColumn()
   createdAt: Date;
