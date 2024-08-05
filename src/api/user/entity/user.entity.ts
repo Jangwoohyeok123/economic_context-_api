@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -39,8 +40,10 @@ export class Users {
   createdAt: Date;
 
   @OneToMany(() => Contexts, (context) => context.user)
+  @JoinColumn({ name: 'context_id' })
   contexts: Contexts[];
 
   @OneToMany(() => Journals, (journal) => journal.user)
+  @JoinColumn({ name: 'journal_id' })
   journals: Journals[];
 }
