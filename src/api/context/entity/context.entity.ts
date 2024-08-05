@@ -38,7 +38,7 @@ export class Contexts {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => Users, (user) => user.contexts, , { nullable: false })
+  @ManyToOne(() => Users, (user) => user.contexts)
   @JoinColumn({ name: 'user_id' })
   user: Users;
 
