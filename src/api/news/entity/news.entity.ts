@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Journals } from 'src/api/journal/entity/journal.entity';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 /* 
   @api https://newsapi.org/docs/endpoints/everything
@@ -28,4 +29,7 @@ export class News {
 
   @Column('varchar', { name: 'content', length: 20000 })
   content: string;
+
+  @ManyToMany(() => Journals, (journal) => journal.news)
+  journals: Journals[];
 }

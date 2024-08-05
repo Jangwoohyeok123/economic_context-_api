@@ -1,10 +1,12 @@
 import { Contexts } from 'src/api/context/entity/context.entity';
+import { News } from 'src/api/news/entity/news.entity';
 import { Users } from 'src/api/user/entity/user.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -34,4 +36,7 @@ export class Journals {
   @ManyToOne(() => Contexts, (context) => context.journals)
   @JoinColumn({ name: 'context_id' })
   context: Contexts;
+
+  @ManyToMany(() => News, (news) => news.journals)
+  news: News[];
 }
