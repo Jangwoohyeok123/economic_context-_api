@@ -1,3 +1,4 @@
+import { Indicators } from 'src/api/indicator/entity/indicator.entity';
 import { Journals } from 'src/api/journal/entity/journal.entity';
 import { Users } from 'src/api/user/entity/user.entity';
 import {
@@ -5,6 +6,7 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -44,4 +46,7 @@ export class Contexts {
 
   @OneToMany(() => Journals, (journal) => journal.context)
   journals: Journals[];
+
+  @ManyToMany(() => Indicators, (indicator) => indicator.contexts)
+  indicators: Indicators[];
 }

@@ -34,7 +34,7 @@ export class ContextService {
       }
 
       const customIndicators = createContextDto.customIndicators
-        .map((indicator) => indicator.seriesId)
+        .map((indicator) => indicator.id)
         .join('|');
 
       const newContext = this.contextRepository.create({
@@ -126,7 +126,7 @@ export class ContextService {
       // Indicators[]에서 ID 리스트를 추출하고 파이프로 조인
       if (updateContextDto.customIndicators) {
         const customIndicatorsString = updateContextDto.customIndicators
-          .map((indicator) => indicator.seriesId)
+          .map((indicator) => indicator.id)
           .join('|');
         context.customIndicators = customIndicatorsString;
       }

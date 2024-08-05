@@ -24,10 +24,12 @@ export class IndicatorService {
     observation_end: string,
     observation_start: string,
   ): Promise<void> {
-    const existingData = await this.indicatorRepository.findOneBy({ seriesId });
+    const existingData = await this.indicatorRepository.findOneBy({
+      id: seriesId,
+    });
     if (!existingData) {
       const newData = this.indicatorRepository.create({
-        seriesId,
+        id: seriesId,
         title,
         categoryId,
         notes,
@@ -42,7 +44,7 @@ export class IndicatorService {
 
   public getIndicatorsByIdList(idList: string[]): Indicators[] {
     return this.IndicatorsCache.filter((indicator) =>
-      idList.includes(indicator.seriesId),
+      idList.includes(indicator.id),
     );
   }
 
