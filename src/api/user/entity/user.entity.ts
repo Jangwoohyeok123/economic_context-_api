@@ -29,6 +29,12 @@ export class Users {
   })
   favorite_indicators: string;
 
+  @Column('varchar', { name: 'favorite_stocks', length: 4096, nullable: true })
+  favorite_stocks: string;
+
+  @Column('varchar', { name: 'favorite_news', length: 4096, nullable: true })
+  favorite_news: string;
+
   @CreateDateColumn()
   createdAt: Date;
 
