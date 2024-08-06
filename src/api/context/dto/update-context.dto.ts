@@ -6,10 +6,6 @@ export class UpdateContextDto {
   @IsOptional()
   readonly name?: string;
 
-  @IsString()
-  @IsOptional()
-  readonly label: string;
-
   @IsArray()
   @IsOptional()
   readonly customIndicators?: Indicators[];

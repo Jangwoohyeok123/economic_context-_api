@@ -6,8 +6,8 @@ import {
   CreateDateColumn,
   Entity,
   ManyToMany,
-  ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -23,8 +23,8 @@ export class Contexts {
   @Column('varchar', { name: 'name', length: 100 })
   name: string;
 
-  @Column('varchar', { name: 'name', length: 1024 })
-  label: string;
+  // @Column('varchar', { name: 'label', length: 1024 })
+  // label: string;
 
   // @Column('varchar', {
   //   name: 'customIndicators',
@@ -39,7 +39,7 @@ export class Contexts {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @ManyToOne(() => Users, (user) => user.contexts)
+  @OneToOne(() => Users, (user) => user.contexts)
   user: Users;
 
   @OneToMany(() => Journals, (journal) => journal.context)
