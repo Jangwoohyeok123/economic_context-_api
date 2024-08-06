@@ -14,6 +14,11 @@ import { Contexts } from './api/context/entity/context.entity';
 import { Journals } from './api/journal/entity/journal.entity';
 import { LoggingMiddleware } from './api/common/middleware/logging.middleware';
 import { ConfigModule } from '@nestjs/config';
+import { News } from './api/news/entity/news.entity';
+import {
+  FavoriteIndicator,
+  FavoriteNews,
+} from './api/favorite/entity/favorite.entity';
 
 @Module({
   imports: [
@@ -23,7 +28,15 @@ import { ConfigModule } from '@nestjs/config';
     JournalModule,
     IndicatorModule,
     ContextModule,
-    typeorm.TypeOrmModule.forFeature([Users, Indicators, Contexts, Journals]),
+    typeorm.TypeOrmModule.forFeature([
+      Users,
+      Indicators,
+      Contexts,
+      Journals,
+      News,
+      FavoriteIndicator,
+      FavoriteNews,
+    ]),
     typeorm.TypeOrmModule.forRoot(ormconfig),
   ],
   controllers: [AppController],

@@ -20,7 +20,7 @@ export class Users {
   @Column('varchar', { name: 'email', length: 100 })
   email: string;
 
-  @Column('varchar', { name: 'picture_url', length: 10000 })
+  @Column('varchar', { name: 'picture_url', length: 3000 })
   picture_url: string;
 
   @Column('varchar', {
@@ -30,10 +30,10 @@ export class Users {
   })
   favorite_indicators: string;
 
-  @Column('varchar', { name: 'favorite_stocks', length: 4096, nullable: true })
+  @Column('varchar', { name: 'favorite_stocks', length: 400, nullable: true })
   favorite_stocks: string;
 
-  @Column('varchar', { name: 'favorite_news', length: 4096, nullable: true })
+  @Column('varchar', { name: 'favorite_news', length: 400, nullable: true })
   favorite_news: string;
 
   @CreateDateColumn()

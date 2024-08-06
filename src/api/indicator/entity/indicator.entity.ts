@@ -29,6 +29,7 @@ export class Indicators {
   observation_start: string;
 
   // context indicator가 indicator를 참조한다.
+  // callback 함수는 context table을 제어한다고 생각해라
   @ManyToMany(() => Contexts, (context) => context.indicators)
   contexts: Contexts[]; // indicator를 참조하는 context List
 

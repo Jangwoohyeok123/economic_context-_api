@@ -12,22 +12,22 @@ export class News {
   @Column('varchar', { name: 'author', length: 200 })
   author: string;
 
-  @Column('varchar', { name: 'title', length: 1000 })
+  @Column('varchar', { name: 'title', length: 200 })
   title: string;
 
-  @Column('varchar', { name: 'description', length: 5000 })
+  @Column('varchar', { name: 'description', length: 1024 })
   description: string;
 
-  @Column('varchar', { name: 'url', length: 1000 })
+  @Column('varchar', { name: 'url', length: 516 })
   url: string;
 
-  @Column('varchar', { name: 'urlToImage', length: 1000 })
+  @Column('varchar', { name: 'urlToImage', length: 516 })
   urlToImage: string;
 
   @Column('datetime', { name: 'publishedAt' })
   publishedAt: Date;
 
-  @Column('varchar', { name: 'content', length: 20000 })
+  @Column('varchar', { name: 'content', length: 2048 })
   content: string;
 
   @ManyToMany(() => Journals, (journal) => journal.news)

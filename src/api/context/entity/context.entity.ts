@@ -5,7 +5,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -41,7 +40,6 @@ export class Contexts {
   updatedAt: Date;
 
   @ManyToOne(() => Users, (user) => user.contexts)
-  @JoinColumn({ name: 'user_id' })
   user: Users;
 
   @OneToMany(() => Journals, (journal) => journal.context)
