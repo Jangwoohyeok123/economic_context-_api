@@ -12,26 +12,13 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-/*  
-  db는 snake case, nest는 camel case를 사용한다.
-*/
 @Entity({ schema: 'economic_context', name: 'contexts' })
-export class Contexts {
+export class Context {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
 
   @Column('varchar', { name: 'name', length: 100 })
   name: string;
-
-  // @Column('varchar', { name: 'label', length: 1024 })
-  // label: string;
-
-  // @Column('varchar', {
-  //   name: 'customIndicators',
-  //   length: 4096,
-  //   nullable: true,
-  // })
-  // customIndicators: string;
 
   @CreateDateColumn()
   createdAt: Date;

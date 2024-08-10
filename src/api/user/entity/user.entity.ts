@@ -1,19 +1,15 @@
-import { Contexts } from 'src/api/context/entity/context.entity';
-import { Journals } from 'src/api/journal/entity/journal.entity';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { CommonEntity } from 'src/api/common/entity/common.entity';
+import { Context } from 'src/api/context/entity/context.entity';
+import { Column, Entity, OneToMany } from 'typeorm';
 
+/* 
+  @description
+  1. fav_indiator
+  2. fav_news
+  3. context 
+*/
 @Entity({ schema: 'economic_context', name: 'users' })
-export class Users {
-  @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
-  id: number;
-
+export class Users extends CommonEntity {
   @Column('varchar', { name: 'google_id', length: 100 })
   google_id: string;
 
@@ -23,27 +19,6 @@ export class Users {
   @Column('varchar', { name: 'picture_url', length: 3000 })
   picture_url: string;
 
-  @Column('varchar', {
-    name: 'favorite_indicators',
-    length: 4096,
-    nullable: true,
-  })
-  favorite_indicators: string;
-
-  @Column('varchar', { name: 'favorite_stocks', length: 400, nullable: true })
-  favorite_stocks: string;
-
-  @Column('varchar', { name: 'favorite_news', length: 400, nullable: true })
-  favorite_news: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @OneToMany(() => Contexts, (context) => context.user)
-  @JoinColumn({ name: 'context_id' })
-  contexts: Contexts[];
-
-  @OneToMany(() => Journals, (journal) => journal.user)
-  @JoinColumn({ name: 'journal_id' })
-  journals: Journals[];
+  @OneToMany(() => Context, (context) => context.user)
+  contexts: Context[];
 }

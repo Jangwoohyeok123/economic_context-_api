@@ -1,13 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsArray } from 'class-validator';
-import { Indicators } from 'src/api/indicator/entity/indicator.entity';
+import { IsString } from 'class-validator';
 
 export class CreateContextDto {
   @ApiProperty({ example: 'APLLE', description: '투자 지표' })
   @IsString()
   readonly name: string;
 
-  @IsArray()
-  @IsOptional()
-  readonly customIndicators: Indicators[];
+  // @IsArray()
+  // @IsOptional()
+  // readonly customIndicators: Indicators[];
 }

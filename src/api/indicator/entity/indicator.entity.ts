@@ -1,4 +1,4 @@
-import { Contexts } from 'src/api/context/entity/context.entity';
+import { Context } from 'src/api/context/entity/context.entity';
 import { Journals } from 'src/api/journal/entity/journal.entity';
 import { Column, Entity, ManyToMany, PrimaryColumn } from 'typeorm';
 
@@ -30,8 +30,8 @@ export class Indicators {
 
   // context indicator가 indicator를 참조한다.
   // callback 함수는 context table을 제어한다고 생각해라
-  @ManyToMany(() => Contexts, (context) => context.indicators)
-  contexts: Contexts[]; // indicator를 참조하는 context List
+  @ManyToMany(() => Context, (context) => context.indicators)
+  contexts: Context[]; // indicator를 참조하는 context List
 
   // journal indicator가 indciator를 참조한다.
   @ManyToMany(() => Journals, (journal) => journal.indicators)

@@ -10,7 +10,7 @@ import * as typeorm from '@nestjs/typeorm';
 import { UserModule } from './api/user/user.module';
 import { Users } from './api/user/entity/user.entity';
 import { Indicators } from './api/indicator/entity/indicator.entity';
-import { Contexts } from './api/context/entity/context.entity';
+import { Context } from './api/context/entity/context.entity';
 import { Journals } from './api/journal/entity/journal.entity';
 import { LoggingMiddleware } from './api/common/middleware/logging.middleware';
 import { ConfigModule } from '@nestjs/config';
@@ -31,7 +31,7 @@ import {
     typeorm.TypeOrmModule.forFeature([
       Users,
       Indicators,
-      Contexts,
+      Context,
       Journals,
       News,
       FavoriteIndicator,

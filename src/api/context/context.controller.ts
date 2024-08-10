@@ -1,5 +1,7 @@
 import {
   Controller,
+  Get,
+  Param,
   // Post,
   // Body,
   // Param,
@@ -20,6 +22,11 @@ import { ApiTags } from '@nestjs/swagger';
 export class ContextController {
   constructor(private readonly contextService: ContextService) {}
 
+  @Get('user/:userId')
+  findAll(@Param('userId') userId: number) {
+    return this.contextService.getContextList(userId);
+  }
+
   // @Post(':userId')
   // @ApiOperation({ summary: 'create a new context' })
   // createContext(
@@ -29,10 +36,10 @@ export class ContextController {
   //   return this.contextService.createContext(userId, createContextDto);
   // }
 
-  // @Get('user/:userId')
-  // getContextAll(@Param('userId') userId: number) {
-  //   return this.contextService.getContextList(userId);
-  // }
+  @Get('user/:userId')
+  getContextAll(@Param('userId') userId: number) {
+    return this.contextService.getContextList(userId);
+  }
 
   // @Get(':contextId')
   // getContext(@Param('contextId') contextId: number) {
@@ -57,3 +64,7 @@ export class ContextController {
   //   await this.contextService.deleteContext(contextId);
   // }
 }
+
+/* 
+  모든 유저의 context를 불러오는 경우는 없는가? 
+*/

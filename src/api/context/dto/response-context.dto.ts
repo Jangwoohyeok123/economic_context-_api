@@ -1,5 +1,5 @@
 import { Journals } from 'src/api/journal/entity/journal.entity';
-import { Contexts } from '../entity/context.entity';
+import { Context } from '../entity/context.entity';
 
 export class ResponseContextDto {
   id: number;
@@ -8,7 +8,7 @@ export class ResponseContextDto {
   updatedAt: Date;
   journals: Journals[];
 
-  constructor(context: Contexts) {
+  constructor(context: Context) {
     this.id = context.id;
     this.name = context.name;
     this.createdAt = context.createdAt;
