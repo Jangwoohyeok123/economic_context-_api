@@ -1,5 +1,4 @@
 import { NoPkCommonEntity } from 'src/api/common/entity/common.entity';
-import { Context } from 'src/api/context/entity/context.entity';
 import { Journal } from 'src/api/journal/entity/journal.entity';
 import { Entity, ManyToMany, PrimaryColumn } from 'typeorm';
 
@@ -28,9 +27,6 @@ export class Indicator extends NoPkCommonEntity {
 
   // @Column('varchar', { name: 'observation_start', length: 30, nullable: true })
   // observation_start: string;
-
-  @ManyToMany(() => Context, (context) => context.indicators)
-  contexts: Context[];
 
   @ManyToMany(() => Journal, (journal) => journal.indicators)
   journals: Journal[];

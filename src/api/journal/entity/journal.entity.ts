@@ -2,7 +2,7 @@ import { CommonEntity } from 'src/api/common/entity/common.entity';
 import { Context } from 'src/api/context/entity/context.entity';
 import { Indicator } from 'src/api/indicator/entity/indicator.entity';
 import { News } from 'src/api/news/entity/news.entity';
-import { Column, Entity, JoinColumn, ManyToMany, ManyToOne } from 'typeorm';
+import { JoinColumn, Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 
 @Entity({ schema: 'economic_context', name: 'journals' })
 export class Journal extends CommonEntity {
@@ -16,9 +16,9 @@ export class Journal extends CommonEntity {
   @JoinColumn([{ name: 'context_id', referencedColumnName: 'id' }])
   context: Context;
 
-  @ManyToMany(() => News, (news) => news.journals)
+  @OneToMany(() => News, (news) => news.journals)
   news: News[];
 
-  @ManyToMany(() => Indicator, (indicator) => indicator.journals)
+  @OneToMany(() => Indicator, (indicator) => indicator.journals)
   indicators: Indicator[];
 }
