@@ -1,7 +1,7 @@
-import { Users } from 'src/api/user/entity/user.entity';
+import { User } from 'src/api/user/entity/user.entity';
 
 export interface UserRequest extends Request {
-  user: Users;
+  user: User;
 }
 
 export enum IndicatorCategory {

@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Users } from './entity/user.entity';
+import { User } from './entity/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { IndicatorService } from '../indicator/indicator.service';
@@ -9,18 +9,18 @@ import { Indicators } from '../indicator/entity/indicator.entity';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(Users) private UserRepository: Repository<Users>,
+    @InjectRepository(User) private UserRepository: Repository<User>,
     private readonly indicatorService: IndicatorService,
   ) {}
-  async SelectOneById(userId: number): Promise<Users> {
+  async SelectOneById(userId: number): Promise<User> {
     const user = await this.UserRepository.createQueryBuilder('users')
       .where({ id: userId })
       .getOne();
     return user;
   }
 
-  async SelectOneByEmail(email: string): Promise<Users | null> {
-    const user: Users | null = await this.UserRepository.createQueryBuilder(
+  async SelectOneByEmail(email: string): Promise<User | null> {
+    const user: User | null = await this.UserRepository.createQueryBuilder(
       'users',
     )
       .where({ email: email })
@@ -28,14 +28,14 @@ export class UserService {
     return user;
   }
 
-  async Create(create_user_dto: CreateUserDto): Promise<Users> {
+  async Create(create_user_dto: CreateUserDto): Promise<User> {
     const user = await this.UserRepository.save(create_user_dto);
     return user;
   }
 
   async addFavoriteOne(userId: number, newIndicatorId: string) {
     try {
-      const user: Users = await this.SelectOneById(userId);
+      const user: User = await this.SelectOneById(userId);
       if (!user) {
         throw new HttpException(
           `User id ${userId} not found`,
@@ -56,7 +56,7 @@ export class UserService {
       );
 
       const result = await this.UserRepository.createQueryBuilder()
-        .update(Users)
+        .update(User)
         .set({ favorite_indicators: updatedIndicators })
         .where('id = :id', { id: user.id })
         .execute();
@@ -110,7 +110,7 @@ export class UserService {
 
   async deleteFavoriteOne(userId: number, deleteIndicatorId: string) {
     try {
-      const user: Users = await this.SelectOneById(userId);
+      const user: User = await this.SelectOneById(userId);
       if (!user) {
         throw new HttpException(
           `User id ${userId} not found`,
@@ -132,7 +132,7 @@ export class UserService {
         .join('|');
 
       await this.UserRepository.createQueryBuilder()
-        .update(Users)
+        .update(User)
         .set({ favorite_indicators: updatedIndicators })
         .where('id = :id', { id: userId })
         .execute();

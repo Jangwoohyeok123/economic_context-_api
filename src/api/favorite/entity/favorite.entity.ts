@@ -1,4 +1,4 @@
-import { Users } from 'src/api/user/entity/user.entity';
+import { User } from 'src/api/user/entity/user.entity';
 import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 /* 
@@ -9,9 +9,9 @@ export class FavoriteNews {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Users, (user) => user.id, { nullable: false })
+  @ManyToOne(() => User, (user) => user.id, { nullable: false })
   @JoinColumn({ name: 'user_id' })
-  user: Users;
+  user: User;
 }
 
 @Entity({ schema: 'economic_context', name: 'favorite_indicators' })

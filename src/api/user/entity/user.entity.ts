@@ -9,7 +9,7 @@ import { Column, Entity, OneToMany } from 'typeorm';
   3. context 
 */
 @Entity({ schema: 'economic_context', name: 'users' })
-export class Users extends CommonEntity {
+export class User extends CommonEntity {
   @Column('varchar', { name: 'google_id', length: 100 })
   google_id: string;
 

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { UserService } from '../user/user.service';
 import { GoogleUserDto } from './dto/auth.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
-import { Users } from '../user/entity/user.entity';
+import { User } from '../user/entity/user.entity';
 
 const GetGoogleAccessToken = async (
   permissionCode: string,
@@ -66,7 +66,7 @@ export class AuthService {
     private jwtService: JwtService,
     private userService: UserService,
   ) {}
-  async googleLogin(permissionCode: string): Promise<[string, Users]> {
+  async googleLogin(permissionCode: string): Promise<[string, User]> {
     let ok: boolean;
     let google_access_token: string;
     let google_user_data: GoogleUserDto | null;
@@ -98,7 +98,7 @@ export class AuthService {
       };
 
       // 기존 유저인지 확인
-      let user: Users | null = await this.userService.SelectOneByEmail(
+      let user: User | null = await this.userService.SelectOneByEmail(
         user_dto.email,
       );
       if (user == null) {
@@ -112,7 +112,7 @@ export class AuthService {
         { secret: process.env.JWT_SECRET_KEY },
       );
 
-      const result: [string, Users] = [access_token, user];
+      const result: [string, User] = [access_token, user];
 
       return result;
     } catch (err) {

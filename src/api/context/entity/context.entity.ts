@@ -1,33 +1,16 @@
+import { CommonEntity } from 'src/api/common/entity/common.entity';
 import { Indicators } from 'src/api/indicator/entity/indicator.entity';
 import { Journals } from 'src/api/journal/entity/journal.entity';
-import { Users } from 'src/api/user/entity/user.entity';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToMany,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { User } from 'src/api/user/entity/user.entity';
+import { Column, Entity, ManyToMany, OneToMany, OneToOne } from 'typeorm';
 
 @Entity({ schema: 'economic_context', name: 'contexts' })
-export class Context {
-  @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
-  id: number;
-
+export class Context extends CommonEntity {
   @Column('varchar', { name: 'name', length: 100 })
   name: string;
 
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @OneToOne(() => Users, (user) => user.contexts)
-  user: Users;
+  @OneToOne(() => User, (user) => user.contexts)
+  user: User;
 
   @OneToMany(() => Journals, (journal) => journal.context)
   journals: Journals[];
