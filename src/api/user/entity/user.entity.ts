@@ -1,5 +1,5 @@
 import { CommonEntity } from 'src/api/common/entity/common.entity';
-import { Context } from 'src/api/context/entity/context.entity';
+import { Tag } from 'src/api/tag/entity/tag.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 /* 
@@ -19,6 +19,6 @@ export class User extends CommonEntity {
   @Column('varchar', { name: 'picture_url', length: 3000 })
   picture_url: string;
 
-  @OneToMany(() => Context, (context) => context.user)
-  contexts: Context[];
+  @OneToMany(() => Tag, (tag) => tag.user)
+  tags: Tag[];
 }
