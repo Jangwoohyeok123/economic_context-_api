@@ -1,6 +1,6 @@
 import { NoPkCommonEntity } from 'src/api/common/entity/common.entity';
 import { Journal } from 'src/api/journal/entity/journal.entity';
-import { Entity, ManyToMany, PrimaryColumn } from 'typeorm';
+import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 
 @Entity({ schema: 'economic_context', name: 'indicators' })
 export class Indicator extends NoPkCommonEntity {
@@ -28,6 +28,7 @@ export class Indicator extends NoPkCommonEntity {
   // @Column('varchar', { name: 'observation_start', length: 30, nullable: true })
   // observation_start: string;
 
-  @ManyToMany(() => Journal, (journal) => journal.indicators)
-  journals: Journal[];
+  @ManyToOne(() => Journal, (journal) => journal.indicators)
+  @JoinColumn([{ name: 'journal_id', referencedColumnName: 'id' }])
+  journal: Journal;
 }

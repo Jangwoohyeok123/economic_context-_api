@@ -17,8 +17,9 @@ export class Journal extends CommonEntity {
   context: Context;
 
   @OneToMany(() => News, (news) => news.journals)
+  @JoinColumn([{ name: 'news_id', referencedColumnName: 'id' }])
   news: News[];
 
-  @OneToMany(() => Indicator, (indicator) => indicator.journals)
+  @OneToMany(() => Indicator, (indicator) => indicator.journal)
   indicators: Indicator[];
 }
