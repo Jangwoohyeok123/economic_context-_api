@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Journals } from './entity/journal.entity';
+import { Journal } from './entity/journal.entity';
 import { Repository } from 'typeorm';
 import { CreateJournalDto } from './dto/create-journal.dto';
 import { UpdateJournalDto } from './dto/update-journal.dto';
@@ -8,15 +8,15 @@ import { UpdateJournalDto } from './dto/update-journal.dto';
 @Injectable()
 export class JournalService {
   constructor(
-    @InjectRepository(Journals)
-    private journalRepository: Repository<Journals>,
+    @InjectRepository(Journal)
+    private journalRepository: Repository<Journal>,
   ) {}
 
   async createJournal(
     userId: number,
     contextId: number,
     createJournalDto: CreateJournalDto,
-  ): Promise<Journals> {
+  ): Promise<Journal> {
     const newJournal = this.journalRepository.create({
       ...createJournalDto,
       user: { id: userId },
@@ -26,13 +26,13 @@ export class JournalService {
     return this.journalRepository.save(newJournal);
   }
 
-  async getJournalsByContextId(contextId: number): Promise<Journals[]> {
+  async getJournalsByContextId(contextId: number): Promise<Journal[]> {
     return this.journalRepository.find({
       where: { context: { id: contextId } },
     });
   }
 
-  async getJournalsByUserId(userId: number): Promise<Journals[]> {
+  async getJournalsByUserId(userId: number): Promise<Journal[]> {
     return this.journalRepository.find({
       where: { user: { id: userId } },
     });
@@ -41,7 +41,7 @@ export class JournalService {
   async updateJournal(
     journalId: number,
     updateJournalDto: UpdateJournalDto,
-  ): Promise<Journals> {
+  ): Promise<Journal> {
     const journal = await this.journalRepository.findOneBy({ id: journalId });
     if (!journal) {
       throw new Error('Journal not found');

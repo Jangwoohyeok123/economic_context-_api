@@ -1,9 +1,10 @@
+import { NoPkCommonEntity } from 'src/api/common/entity/common.entity';
 import { Context } from 'src/api/context/entity/context.entity';
-import { Journals } from 'src/api/journal/entity/journal.entity';
+import { Journal } from 'src/api/journal/entity/journal.entity';
 import { Column, Entity, ManyToMany, PrimaryColumn } from 'typeorm';
 
 @Entity({ schema: 'economic_context', name: 'indicators' })
-export class Indicators {
+export class Indicators extends NoPkCommonEntity {
   @PrimaryColumn('varchar', { name: 'id', length: 500 })
   id: string;
 
@@ -11,7 +12,7 @@ export class Indicators {
   title: string;
 
   @Column({ type: 'int', name: 'categoryId' })
-  categoryId: number;
+  category_id: number;
 
   @Column('varchar', { name: 'notes', length: 4096, nullable: true })
   notes: string;
@@ -28,12 +29,9 @@ export class Indicators {
   @Column('varchar', { name: 'observation_start', length: 30, nullable: true })
   observation_start: string;
 
-  // context indicator가 indicator를 참조한다.
-  // callback 함수는 context table을 제어한다고 생각해라
   @ManyToMany(() => Context, (context) => context.indicators)
-  contexts: Context[]; // indicator를 참조하는 context List
+  contexts: Context[];
 
-  // journal indicator가 indciator를 참조한다.
-  @ManyToMany(() => Journals, (journal) => journal.indicators)
-  journals: Journals[]; // indicator를 참조하는 journal List
+  @ManyToMany(() => Journal, (journal) => journal.indicators)
+  journals: Journal[];
 }

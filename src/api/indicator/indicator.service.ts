@@ -31,7 +31,7 @@ export class IndicatorService {
       const newData = this.indicatorRepository.create({
         id: seriesId,
         title,
-        categoryId,
+        category_id: categoryId,
         notes,
         frequency,
         popularity,

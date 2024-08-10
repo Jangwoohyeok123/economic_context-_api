@@ -18,3 +18,14 @@ export class CommonEntity {
   @DeleteDateColumn()
   deleted_at: Date;
 }
+
+export class NoPkCommonEntity {
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
+
+  @DeleteDateColumn()
+  deleted_at: Date;
+}

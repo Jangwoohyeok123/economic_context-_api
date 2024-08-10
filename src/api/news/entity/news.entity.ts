@@ -1,4 +1,4 @@
-import { Journals } from 'src/api/journal/entity/journal.entity';
+import { Journal } from 'src/api/journal/entity/journal.entity';
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 /* 
@@ -30,6 +30,6 @@ export class News {
   @Column('varchar', { name: 'content', length: 2048 })
   content: string;
 
-  @ManyToMany(() => Journals, (journal) => journal.news)
-  journals: Journals[];
+  @ManyToMany(() => Journal, (journal) => journal.news)
+  journals: Journal[];
 }

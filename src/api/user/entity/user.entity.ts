@@ -2,12 +2,6 @@ import { CommonEntity } from 'src/api/common/entity/common.entity';
 import { Tag } from 'src/api/tag/entity/tag.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 
-/* 
-  @description
-  1. fav_indiator
-  2. fav_news
-  3. context 
-*/
 @Entity({ schema: 'economic_context', name: 'users' })
 export class User extends CommonEntity {
   @Column('varchar', { name: 'google_id', length: 100 })

@@ -104,7 +104,7 @@ export class UserService {
     const idList = user.favorite_indicators.split('|').map(String);
     const indicatorsList = this.indicatorService.getIndicatorsByIdList(idList);
     return indicatorsList.filter(
-      (indicator) => indicator.categoryId == categoryId,
+      (indicator) => indicator.category_id == categoryId,
     );
   }
 

@@ -11,7 +11,7 @@ import { UserModule } from './api/user/user.module';
 import { User } from './api/user/entity/user.entity';
 import { Indicators } from './api/indicator/entity/indicator.entity';
 import { Context } from './api/context/entity/context.entity';
-import { Journals } from './api/journal/entity/journal.entity';
+import { Journal } from './api/journal/entity/journal.entity';
 import { LoggingMiddleware } from './api/common/middleware/logging.middleware';
 import { ConfigModule } from '@nestjs/config';
 import { News } from './api/news/entity/news.entity';
@@ -32,7 +32,7 @@ import {
       User,
       Indicators,
       Context,
-      Journals,
+      Journal,
       News,
       FavoriteIndicator,
       FavoriteNews,
