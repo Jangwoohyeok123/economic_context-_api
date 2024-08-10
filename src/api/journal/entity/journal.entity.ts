@@ -1,6 +1,6 @@
 import { CommonEntity } from 'src/api/common/entity/common.entity';
 import { Context } from 'src/api/context/entity/context.entity';
-import { Indicators } from 'src/api/indicator/entity/indicator.entity';
+import { Indicator } from 'src/api/indicator/entity/indicator.entity';
 import { News } from 'src/api/news/entity/news.entity';
 import { Column, Entity, JoinColumn, ManyToMany, ManyToOne } from 'typeorm';
 
@@ -19,6 +19,6 @@ export class Journal extends CommonEntity {
   @ManyToMany(() => News, (news) => news.journals)
   news: News[];
 
-  @ManyToMany(() => Indicators, (indicator) => indicator.journals)
-  indicators: Indicators[];
+  @ManyToMany(() => Indicator, (indicator) => indicator.journals)
+  indicators: Indicator[];
 }

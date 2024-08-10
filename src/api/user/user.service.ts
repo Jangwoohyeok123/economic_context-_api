@@ -4,7 +4,7 @@ import { User } from './entity/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { IndicatorService } from '../indicator/indicator.service';
-import { Indicators } from '../indicator/entity/indicator.entity';
+import { Indicator } from '../indicator/entity/indicator.entity';
 
 @Injectable()
 export class UserService {
@@ -67,7 +67,7 @@ export class UserService {
     }
   }
 
-  async getFavoriteIndicatorsAll(userId: number): Promise<Indicators[]> {
+  async getFavoriteIndicatorsAll(userId: number): Promise<Indicator[]> {
     const user = await this.UserRepository.findOneBy({ id: userId });
     if (!user) {
       throw new HttpException(
@@ -87,7 +87,7 @@ export class UserService {
   async getFavoriteIndicatorsByType(
     userId: number,
     categoryId: number,
-  ): Promise<Indicators[]> {
+  ): Promise<Indicator[]> {
     const user = await this.UserRepository.findOneBy({ id: userId });
 
     if (!user) {

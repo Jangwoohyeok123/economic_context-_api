@@ -5,11 +5,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Context } from './entity/context.entity';
 import { UserModule } from '../user/user.module';
 import { IndicatorService } from '../indicator/indicator.service';
-import { Indicators } from '../indicator/entity/indicator.entity';
+import { Indicator } from '../indicator/entity/indicator.entity';
 import { JwtService } from '@nestjs/jwt';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Context, Indicators]), UserModule],
+  imports: [TypeOrmModule.forFeature([Context, Indicator]), UserModule],
   controllers: [ContextController],
   providers: [ContextService, IndicatorService, JwtService],
   exports: [ContextService],

@@ -1,5 +1,5 @@
 import { CommonEntity } from 'src/api/common/entity/common.entity';
-import { Indicators } from 'src/api/indicator/entity/indicator.entity';
+import { Indicator } from 'src/api/indicator/entity/indicator.entity';
 import { Journal } from 'src/api/journal/entity/journal.entity';
 import { Tag } from 'src/api/tag/entity/tag.entity';
 import { Column, Entity, ManyToMany, OneToMany } from 'typeorm';
@@ -18,6 +18,6 @@ export class Context extends CommonEntity {
   @OneToMany(() => Journal, (journal) => journal.context)
   journals: Journal[];
 
-  @ManyToMany(() => Indicators, (indicator) => indicator.contexts)
-  indicators: Indicators[];
+  @ManyToMany(() => Indicator, (indicator) => indicator.contexts)
+  indicators: Indicator[];
 }

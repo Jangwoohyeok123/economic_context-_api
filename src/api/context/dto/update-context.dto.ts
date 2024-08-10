@@ -1,5 +1,5 @@
 import { IsString, IsOptional, IsArray } from 'class-validator';
-import { Indicators } from 'src/api/indicator/entity/indicator.entity';
+import { Indicator } from 'src/api/indicator/entity/indicator.entity';
 
 export class UpdateContextDto {
   @IsString()
@@ -8,5 +8,5 @@ export class UpdateContextDto {
 
   @IsArray()
   @IsOptional()
-  readonly customIndicators?: Indicators[];
+  readonly customIndicators?: Indicator[];
 }

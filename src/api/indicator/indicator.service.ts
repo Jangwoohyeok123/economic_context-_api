@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Indicators } from './entity/indicator.entity';
+import { Indicator } from './entity/indicator.entity';
 import { Repository } from 'typeorm';
 import axios from 'axios';
 import { IndicatorCategory, FredAPIData } from '../common/define';
@@ -8,11 +8,11 @@ import { IndicatorCategory, FredAPIData } from '../common/define';
 @Injectable()
 export class IndicatorService {
   constructor(
-    @InjectRepository(Indicators)
-    private indicatorRepository: Repository<Indicators>,
+    @InjectRepository(Indicator)
+    private indicatorRepository: Repository<Indicator>,
   ) {}
   // Singleton
-  private IndicatorsCache: Indicators[] = [];
+  private IndicatorsCache: Indicator[] = [];
 
   async saveIndicatorData(
     seriesId: string,
@@ -42,7 +42,7 @@ export class IndicatorService {
     }
   }
 
-  public getIndicatorsByIdList(idList: string[]): Indicators[] {
+  public getIndicatorsByIdList(idList: string[]): Indicator[] {
     return this.IndicatorsCache.filter((indicator) =>
       idList.includes(indicator.id),
     );
