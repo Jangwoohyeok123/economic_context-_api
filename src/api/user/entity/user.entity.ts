@@ -1,4 +1,8 @@
 import { CommonEntity } from 'src/api/common/entity/common.entity';
+import {
+  FavoriteIndicator,
+  FavoriteNews,
+} from 'src/api/favorite/entity/favorite.entity';
 import { Tag } from 'src/api/tag/entity/tag.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 
@@ -15,4 +19,13 @@ export class User extends CommonEntity {
 
   @OneToMany(() => Tag, (tag) => tag.user)
   tags: Tag[];
+
+  @OneToMany(
+    () => FavoriteIndicator,
+    (favoriteIndicators) => favoriteIndicators.user,
+  )
+  favoriteIndicators: FavoriteIndicator[];
+
+  @OneToMany(() => FavoriteNews, (favoriteNews) => favoriteNews.user)
+  favoriteNews: FavoriteNews[];
 }
