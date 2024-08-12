@@ -1,7 +1,7 @@
 import {
   Controller,
-  Get,
-  Param,
+  // Get,
+  // Param,
   // Post,
   // Body,
   // Param,
@@ -22,10 +22,10 @@ import { ApiTags } from '@nestjs/swagger';
 export class ContextController {
   constructor(private readonly contextService: ContextService) {}
 
-  @Get('user/:userId')
-  findAll(@Param('userId') userId: number) {
-    return this.contextService.getContextList(userId);
-  }
+  // @Get('user/:userId')
+  // findAll(@Param('userId') userId: number) {
+  //   return this.contextService.getContextList(userId);
+  // }
 
   // @Post(':userId')
   // @ApiOperation({ summary: 'create a new context' })
@@ -36,10 +36,10 @@ export class ContextController {
   //   return this.contextService.createContext(userId, createContextDto);
   // }
 
-  @Get('user/:userId')
-  getContextAll(@Param('userId') userId: number) {
-    return this.contextService.getContextList(userId);
-  }
+  // @Get('user/:userId')
+  // getContextAll(@Param('userId') userId: number) {
+  //   return this.contextService.getContextList(userId);
+  // }
 
   // @Get(':contextId')
   // getContext(@Param('contextId') contextId: number) {

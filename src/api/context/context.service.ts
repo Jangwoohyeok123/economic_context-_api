@@ -26,23 +26,23 @@ export class ContextService {
     3. user가 존재하면 contextRepo에서 해당 user의 contextList를 찾는다.
     4. contextList를 promise객체로 wrapping하여 반환한다.
   */
-  async getContextList(userId: number): Promise<Context[]> {
-    const user = await this.userService.SelectOneById(userId);
-    if (!user) return [];
+  // async getContextList(userId: number): Promise<Context[]> {
+  //   const user = await this.userService.SelectOneById(userId);
+  //   if (!user) return [];
 
-    // const contextList = await this.contextRepository.find({
-    //   where: { user: { id: userId } },
-    //   order: { createdAt: 'DESC' },
-    //   select: [],
-    // });
+  // const contextList = await this.contextRepository.find({
+  //   where: { user: { id: userId } },
+  //   order: { createdAt: 'DESC' },
+  //   select: [],
+  // });
 
-    const contextList = await this.dataSource.query(
-      'SELECT * FROM contexts WHERE user_id = ? ORDER BY created_at DESC',
-      [userId],
-    );
+  //   const contextList = await this.dataSource.query(
+  //     'SELECT * FROM contexts WHERE user_id = ? ORDER BY created_at DESC',
+  //     [userId],
+  //   );
 
-    return contextList;
-  }
+  //   return contextList;
+  // }
 
   // async getContext(contextId: number): Promise<ResponseContextDto> {
   //   try {
