@@ -1,5 +1,11 @@
 import { Journal } from 'src/api/journal/entity/journal.entity';
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 /* 
   @api https://newsapi.org/docs/endpoints/everything
@@ -30,6 +36,7 @@ export class News {
   @Column('varchar', { name: 'content', length: 2048 })
   content: string;
 
-  @ManyToMany(() => Journal, (journal) => journal.news)
-  journals: Journal[];
+  @ManyToOne(() => Journal, (journal) => journal.news)
+  @JoinColumn([{ name: 'journal_id', referencedColumnName: 'id' }])
+  journal: Journal;
 }
