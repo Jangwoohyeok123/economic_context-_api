@@ -12,8 +12,8 @@ import {
 */
 @Entity({ schema: 'economic_context', name: 'news' })
 export class News {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn({ type: 'int', name: 'news_id' })
+  newsId: number;
 
   @Column('varchar', { name: 'author', length: 200 })
   author: string;

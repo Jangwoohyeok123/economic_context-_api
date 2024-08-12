@@ -4,18 +4,21 @@ import {
   FavoriteNews,
 } from 'src/api/favorite/entity/favorite.entity';
 import { Tag } from 'src/api/tag/entity/tag.entity';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ schema: 'economic_context', name: 'users' })
 export class User extends CommonEntity {
+  @PrimaryGeneratedColumn({ type: 'int', name: 'user_id' })
+  userId: number;
+
   @Column('varchar', { name: 'google_id', length: 100 })
-  google_id: string;
+  googleId: string;
 
   @Column('varchar', { name: 'email', length: 100 })
   email: string;
 
   @Column('varchar', { name: 'picture_url', length: 3000 })
-  picture_url: string;
+  pictureUrl: string;
 
   @OneToMany(() => Tag, (tag) => tag.user)
   tags: Tag[];
