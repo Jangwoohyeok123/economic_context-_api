@@ -28,6 +28,6 @@ export class Indicator extends CommonEntity {
   // @Column('varchar', { name: 'observation_start', length: 30, nullable: true })
   // observation_start: string;
   @ManyToOne(() => Journal, (journal) => journal.indicators)
-  @JoinColumn([{ name: 'journal_id', referencedColumnName: 'id' }])
+  @JoinColumn([{ name: 'journal_id', referencedColumnName: 'journalId' }])
   journal: Journal;
 }

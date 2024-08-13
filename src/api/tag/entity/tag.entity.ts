@@ -4,6 +4,7 @@ import { User } from 'src/api/user/entity/user.entity';
 import {
   Column,
   Entity,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -21,5 +22,16 @@ export class Tag extends CommonEntity {
   user: User;
 
   @ManyToMany(() => Context, (context) => context.tags)
+  @JoinTable({
+    name: 'context_tags',
+    joinColumn: {
+      name: 'tag_id',
+      referencedColumnName: 'tagId',
+    },
+    inverseJoinColumn: {
+      name: 'context_id',
+      referencedColumnName: 'contextId',
+    },
+  })
   contexts: Context[];
 }

@@ -19,6 +19,7 @@ import {
   FavoriteIndicator,
   FavoriteNews,
 } from './api/favorite/entity/favorite.entity';
+import { Tag } from './api/tag/entity/tag.entity';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import {
       News,
       FavoriteIndicator,
       FavoriteNews,
+      Tag,
     ]),
     typeorm.TypeOrmModule.forRoot(ormconfig),
   ],

@@ -11,7 +11,7 @@ export class FavoriteNews extends CommonEntity {
   favoriteNewsId: number;
 
   @ManyToOne(() => User, (user) => user.favoriteNews)
-  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'userId' })
   user: User;
 }
 
@@ -21,6 +21,6 @@ export class FavoriteIndicator extends CommonEntity {
   favoriteIndicatorId: number;
 
   @ManyToOne(() => User, (user) => user.favoriteIndicators)
-  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'userId' })
   user: User;
 }

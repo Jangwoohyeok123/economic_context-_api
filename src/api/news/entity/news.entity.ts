@@ -37,6 +37,6 @@ export class News {
   content: string;
 
   @ManyToOne(() => Journal, (journal) => journal.news)
-  @JoinColumn([{ name: 'journal_id', referencedColumnName: 'id' }])
+  @JoinColumn([{ name: 'journal_id', referencedColumnName: 'journalId' }])
   journal: Journal;
 }

@@ -23,7 +23,7 @@ export class Journal extends CommonEntity {
   body: string;
 
   @ManyToOne(() => Context, (context) => context.journals)
-  @JoinColumn([{ name: 'context_id', referencedColumnName: 'id' }])
+  @JoinColumn([{ name: 'context_id', referencedColumnName: 'contextId' }])
   context: Context;
 
   @OneToMany(() => News, (news) => news.journal)
