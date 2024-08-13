@@ -6,6 +6,10 @@ import { GoogleUserDto } from './dto/auth.dto';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { User } from '../user/entity/user.entity';
 
+/* 이 함수에 관한 설명 
+  GetGoogleAccessToken은 permissionCode를 이용하여 Google Access token을 획득하는 함수이다.
+  permissionCode는 
+*/
 const GetGoogleAccessToken = async (
   permissionCode: string,
 ): Promise<[boolean, string]> => {
@@ -26,8 +30,8 @@ const GetGoogleAccessToken = async (
       },
     );
 
-    const google_access_token = response.data.access_token;
-    return [true, google_access_token];
+    const googleAccessToken = response.data.access_token;
+    return [true, googleAccessToken];
   } catch (error) {
     console.error('Error getting Google access token:', error);
     return [false, ''];
@@ -35,25 +39,25 @@ const GetGoogleAccessToken = async (
 };
 
 const GetGoogleUserData = async (
-  google_access_token: string,
+  googleAccessToken: string,
 ): Promise<[boolean, GoogleUserDto | null]> => {
   try {
     const response = await axios.get(
       `https://www.googleapis.com/oauth2/v2/userinfo`,
       {
         headers: {
-          Authorization: `Bearer ${google_access_token}`,
+          Authorization: `Bearer ${googleAccessToken}`,
         },
       },
     );
 
-    const google_user_data_str = JSON.stringify(response.data);
-    const google_user_data_object = JSON.parse(google_user_data_str);
-    const google_user_dto = Object.assign(
+    const googleUserDataString = JSON.stringify(response.data);
+    const googleUserDataObject = JSON.parse(googleUserDataString);
+    const googleUserDto = Object.assign(
       new GoogleUserDto(),
-      google_user_data_object,
+      googleUserDataObject,
     );
-    return [true, google_user_dto];
+    return [true, googleUserDto];
   } catch (error) {
     console.error('Error getting Google user data:', error);
     return [false, null];
@@ -101,10 +105,8 @@ export class AuthService {
       let user: User | null = await this.userService.SelectOneByEmail(
         user_dto.email,
       );
-      if (user == null) {
-        // 새로 생성
-        user = await this.userService.Create(user_dto);
-      }
+
+      if (user == null) user = await this.userService.Create(user_dto);
 
       // Server API Access token 획득
       access_token = this.jwtService.sign(

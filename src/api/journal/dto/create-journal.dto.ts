@@ -1,9 +1,9 @@
-import { IsString } from 'class-validator';
+// import { IsString } from 'class-validator';
 
-export class CreateJournalDto {
-  @IsString()
-  readonly title: string;
+// export class CreateJournalDto {
+//   @IsString()
+//   readonly title: string;
 
-  @IsString()
-  readonly body: string;
-}
+//   @IsString()
+//   readonly body: string;
+// }

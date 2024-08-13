@@ -12,7 +12,7 @@ export class IndicatorService {
     private indicatorRepository: Repository<Indicator>,
   ) {}
   // Singleton
-  private IndicatorsCache: Indicator[] = [];
+  // private IndicatorsCache: Indicator[] = [];
 
   // async saveIndicatorData(
   //   seriesId: string,
