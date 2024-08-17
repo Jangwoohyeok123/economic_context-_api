@@ -5,6 +5,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -24,6 +25,17 @@ export class Tag extends CommonEntity {
   user: User;
 
   @ManyToMany(() => Context, (context) => context.tags)
+  @JoinTable({
+    name: 'tags_contexts',
+    joinColumn: {
+      name: 'tag_id',
+      referencedColumnName: 'tagId',
+    },
+    inverseJoinColumn: {
+      name: 'context_id',
+      referencedColumnName: 'contextId',
+    },
+  })
   contexts: Context[];
 }
 // @JoinColumn은 fk의 column명을 지정하고 typeorm상 참조할 컬럼명을 지정한다.
