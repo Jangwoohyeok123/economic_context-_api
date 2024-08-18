@@ -18,7 +18,3 @@ export class Like extends CommonEntity {
   @ManyToOne(() => Context, (context) => context.likes)
   context: Context;
 }
-// 하나의 user는 여러개의 like를 가진다.
-// 하나의 context는 여러개의 like를 가진다.
-// 하나의 like는 하나의 user를 가진다.
-// 하나의 like는 하나의 context를 가진다.

@@ -1,11 +1,13 @@
 import { CommonEntity } from 'src/api/common/entity/common.entity';
 import { Journal } from 'src/api/journal/entity/journal.entity';
 import { Like } from 'src/api/like/entity/like.entity';
+import { Stock } from 'src/api/stock/entity/stock.entity';
 import { Tag } from 'src/api/tag/entity/tag.entity';
 import {
   Column,
   Entity,
   ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -29,4 +31,7 @@ export class Context extends CommonEntity {
 
   @OneToMany(() => Like, (like) => like.context)
   likes: Like[];
+
+  @ManyToOne(() => Stock, (stock) => stock.contexts)
+  stock: Stock;
 }

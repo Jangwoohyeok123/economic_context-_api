@@ -22,6 +22,7 @@ import {
 } from './api/favorite/entity/favorite.entity';
 import { Tag } from './api/tag/entity/tag.entity';
 import { Like } from './api/like/entity/like.entity';
+import { Stock } from './api/stock/entity/stock.entity';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { Like } from './api/like/entity/like.entity';
       FavoriteNews,
       FavoriteStock,
       Tag,
+      Stock,
     ]),
     typeorm.TypeOrmModule.forRoot(ormconfig),
   ],
