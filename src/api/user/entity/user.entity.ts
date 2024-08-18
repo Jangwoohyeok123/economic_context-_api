@@ -1,4 +1,5 @@
 import { CommonEntity } from 'src/api/common/entity/common.entity';
+import { Context } from 'src/api/context/entity/context.entity';
 import {
   FavoriteIndicator,
   FavoriteNews,
@@ -39,4 +40,7 @@ export class User extends CommonEntity {
 
   @OneToMany(() => Like, (like) => like.user)
   likes: Like[];
+
+  @OneToMany(() => Context, (context) => context.user)
+  contexts: Context[];
 }

@@ -3,9 +3,11 @@ import { Journal } from 'src/api/journal/entity/journal.entity';
 import { Like } from 'src/api/like/entity/like.entity';
 import { Stock } from 'src/api/stock/entity/stock.entity';
 import { Tag } from 'src/api/tag/entity/tag.entity';
+import { User } from 'src/api/user/entity/user.entity';
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -33,5 +35,10 @@ export class Context extends CommonEntity {
   likes: Like[];
 
   @ManyToOne(() => Stock, (stock) => stock.contexts)
+  @JoinColumn({ name: 'stock_id', referencedColumnName: 'stockId' })
   stock: Stock;
+
+  @ManyToOne(() => User, (user) => user.contexts)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'userId' })
+  user: User;
 }
