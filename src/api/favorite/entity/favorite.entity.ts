@@ -24,3 +24,13 @@ export class FavoriteIndicator extends CommonEntity {
   @JoinColumn({ name: 'user_id', referencedColumnName: 'userId' })
   user: User;
 }
+
+@Entity({ schema: 'economic_context', name: 'favorite_stocks' })
+export class FavoriteStock extends CommonEntity {
+  @PrimaryGeneratedColumn({ type: 'int', name: 'favorite_stock_id' })
+  favoriteStockId: number;
+
+  @ManyToOne(() => User, (user) => user.favoriteStocks)
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'userId' })
+  user: User;
+}

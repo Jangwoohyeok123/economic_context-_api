@@ -2,6 +2,7 @@ import { CommonEntity } from 'src/api/common/entity/common.entity';
 import {
   FavoriteIndicator,
   FavoriteNews,
+  FavoriteStock,
 } from 'src/api/favorite/entity/favorite.entity';
 import { Tag } from 'src/api/tag/entity/tag.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
@@ -31,4 +32,7 @@ export class User extends CommonEntity {
 
   @OneToMany(() => FavoriteNews, (favoriteNews) => favoriteNews.user)
   favoriteNews: FavoriteNews[];
+
+  @OneToMany(() => FavoriteStock, (favoriteStock) => favoriteStock.user)
+  favoriteStocks: FavoriteStock[];
 }
