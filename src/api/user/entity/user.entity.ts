@@ -4,6 +4,7 @@ import {
   FavoriteNews,
   FavoriteStock,
 } from 'src/api/favorite/entity/favorite.entity';
+import { Like } from 'src/api/like/entity/like.entity';
 import { Tag } from 'src/api/tag/entity/tag.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -35,4 +36,7 @@ export class User extends CommonEntity {
 
   @OneToMany(() => FavoriteStock, (favoriteStock) => favoriteStock.user)
   favoriteStocks: FavoriteStock[];
+
+  @OneToMany(() => Like, (like) => like.user)
+  likes: Like[];
 }

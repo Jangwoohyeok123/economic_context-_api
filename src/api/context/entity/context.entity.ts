@@ -1,5 +1,6 @@
 import { CommonEntity } from 'src/api/common/entity/common.entity';
 import { Journal } from 'src/api/journal/entity/journal.entity';
+import { Like } from 'src/api/like/entity/like.entity';
 import { Tag } from 'src/api/tag/entity/tag.entity';
 import {
   Column,
@@ -25,4 +26,7 @@ export class Context extends CommonEntity {
 
   @OneToMany(() => Journal, (journal) => journal.context)
   journals: Journal[];
+
+  @OneToMany(() => Like, (like) => like.context)
+  likes: Like[];
 }
